@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>c:\users\dilbert\Documents\Atmel Studio\7.0\CpE301_Assignment_1A\CpE301_Assignment_1A\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>c:\users\dilbert\Documents\Atmel Studio\7.0\CpE301_Assignment_1A\CpE301_Assignment_1A\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>c:\users\dilbert\Documents\Atmel Studio\7.0\CpE301_Assignment_1A\CpE301_Assignment_1A\Debug\CpE301_Assignment_1A.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>CpE301_Assignment_1A.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>CpE301_Assignment_1A.map</FILE>
+  <FILE>CpE301_Assignment_1A.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <msb><FILE>c:\users\dilbert\Documents\Atmel Studio\7.0\CpE301_Assignment_1A\CpE301_Assignment_1A\main.asm</FILE><LINE>45</LINE></msb>
+  <loop><FILE>c:\users\dilbert\Documents\Atmel Studio\7.0\CpE301_Assignment_1A\CpE301_Assignment_1A\main.asm</FILE><LINE>33</LINE></loop>
+  <end><FILE>c:\users\dilbert\Documents\Atmel Studio\7.0\CpE301_Assignment_1A\CpE301_Assignment_1A\main.asm</FILE><LINE>52</LINE></end>
+ </LABELS>
+</ASSEMBLER_INFO>
