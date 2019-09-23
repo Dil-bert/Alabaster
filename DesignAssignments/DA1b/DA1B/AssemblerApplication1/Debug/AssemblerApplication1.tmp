@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328PBdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pbdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\Debug\AssemblerApplication1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>AssemblerApplication1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>AssemblerApplication1.map</FILE>
+  <FILE>AssemblerApplication1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <FILL_VALS><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>96</LINE></FILL_VALS>
+  <POST><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>52</LINE></POST>
+  <NEXT><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>66</LINE></NEXT>
+  <BADDLY_DIVIS><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>88</LINE></BADDLY_DIVIS>
+  <GOODLY_DIVIS><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>92</LINE></GOODLY_DIVIS>
+  <ERROR><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>85</LINE></ERROR>
+  <DONE><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>82</LINE></DONE>
+  <LOOP><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA1b\DA1B\AssemblerApplication1\main.asm</FILE><LINE>99</LINE></LOOP>
+ </LABELS>
+</ASSEMBLER_INFO>
