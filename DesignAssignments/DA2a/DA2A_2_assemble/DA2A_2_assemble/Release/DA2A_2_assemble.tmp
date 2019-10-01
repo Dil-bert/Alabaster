@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\Release</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\Release\DA2A_2_assemble.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>DA2A_2_assemble.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>DA2A_2_assemble.map</FILE>
+  <FILE>DA2A_2_assemble.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>16</LINE></start>
+  <led><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>21</LINE></led>
+  <delay><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>26</LINE></delay>
+  <d3><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>28</LINE></d3>
+  <d2><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>30</LINE></d2>
+  <d1><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>32</LINE></d1>
+  <d0><FILE>C:\Users\Dilbert\Desktop\School\UNLV\CPE301\Repository\Assignment\DesignAssignments\DA2a\DA2A_2_assemble\DA2A_2_assemble\main.asm</FILE><LINE>34</LINE></d0>
+ </LABELS>
+</ASSEMBLER_INFO>
