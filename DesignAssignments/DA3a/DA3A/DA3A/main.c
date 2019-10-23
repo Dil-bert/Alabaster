@@ -78,7 +78,7 @@ void USART_putstring(char *StringPtr)
 	}
 }
 
-// *****Original transmit function (much more complex than needed) *****
+// ***** my Original transmit function (much more complex than needed) *****
 
 /*void USART_tx_int(int x){
 	char buffer[64];
