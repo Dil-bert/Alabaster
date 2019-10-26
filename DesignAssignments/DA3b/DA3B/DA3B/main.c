@@ -14,9 +14,13 @@
 #define UBRR_VALUE (((F_CPU/(USART_BAUDRATE*16UL)))-1)
 #define ADCINDEX 20
 //store ADC values
-uint8_t wave[ADCINDEX];
+//uint8_t wave[ADCINDEX];
+
 volatile uint8_t ii = 0;
-volatile uint8_t flag = 0;
+volatile uint8_t tempL = 0;
+volatile uint8_t tempH = 0;
+volatile float tempOut = 0;
+//volatile uint8_t flag = 0;
 
 void InitPort();
 
@@ -40,7 +44,6 @@ int main(void){
 	// Initialize USART0
 	USART0Init();
 	// Initialize ports
-	//TODO IMPLEMENT InitPort();
 	InitPort();
 	// Assign our stream to standard I/O streams
 	stdout=&usart0_str;
@@ -57,22 +60,28 @@ int main(void){
 	// Enable global interrupts
 	sei();
     while (1){
-		//TODO add some sort of delay
 		_delay_ms(1000);
-		printf("ADC val[%u]=%u\r\n",ii,wave[ii]);
+		tempOut = ((tempH << 8)|(tempL));
+		tempOut = ((tempOut * 0.4883));
+		printf("Temp = %.1f C\r\n",tempOut);
     }
 }
 
 void InitPort(){
-	
+	// Set pin C5 as an input pin
+	DDRC |= (0<<PINC5);
+	// Ensure pin C5 pull up resistor is off
+	PORTC = (0<<PINC5);
+	// Turn off Digital logic on pin C5
+	DIDR0 |= (1<<ADC5D);
 }
 
 void InitADC(){
-	// Select Vref=Avcc and set left justified result
-	ADMUX |=(1<<REFS0)|(1<<ADLAR);
+	// Select Vref=Avcc and set (left = ADLAR = 1)(right = ADLAR = 0) justified result
+	ADMUX |=(1<<REFS0)|(0<<ADLAR);
 	// Set prescaller to 32, enable auto triggering, enable ADC interrupt
 	//  and enable ADC
-	ADCSRA |=(1<<ADPS2)|(1<<ADPS0)|(1<<ADATE)|(1<<ADIE)|(1<<ADEN);
+	ADCSRA |=(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0)|(1<<ADATE)|(1<<ADIE)|(1<<ADEN);
 	// Set ADC trigger source - Timer0 compare match A
 	ADCSRB |=(1<<ADTS1)|(1<<ADTS0);
 }
@@ -134,10 +143,11 @@ ISR(ADC_vect){
 	TIFR0 = (1<<OCF0A);
 	// Toggle pin PD2 to track the end of ADC conversion
 	PIND = (1<<PD2);
-	wave[ii++] = ADCH;
-	if(ii == ADCINDEX){ // read 20 values?
-		StopTimer();
-		DisableADC();
-		flag = 1;
-	}
+	tempL = ADCL;
+	tempH = ADCH;
+	//if(ii == ADCINDEX){ // read 20 values?
+	//	StopTimer();
+	//	DisableADC();
+	//	flag = 1;
+	//}
 }
