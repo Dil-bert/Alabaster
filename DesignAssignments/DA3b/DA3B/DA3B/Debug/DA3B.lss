@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000078  00000000  00000000  00001120  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000009f0  00000000  00000000  00001198  2**0
+  6 .debug_info   000009df  00000000  00000000  00001198  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007f4  00000000  00000000  00001b88  2**0
+  7 .debug_abbrev 000007e3  00000000  00000000  00001b77  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000412  00000000  00000000  0000237c  2**0
+  8 .debug_line   00000412  00000000  00000000  0000235a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000fc  00000000  00000000  00002790  2**2
+  9 .debug_frame  000000fc  00000000  00000000  0000276c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000049b  00000000  00000000  0000288c  2**0
+ 10 .debug_str    0000049b  00000000  00000000  00002868  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000134  00000000  00000000  00002d27  2**0
+ 11 .debug_loc    00000134  00000000  00000000  00002d03  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000068  00000000  00000000  00002e5b  2**0
+ 12 .debug_ranges 00000068  00000000  00000000  00002e37  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -123,9 +123,9 @@ Disassembly of section .text:
  1a4:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000001a8 <USART0SendByte>:
-	TCCR0B |= (1<<CS01);
-}
-
+//-----------------------------------------------------------------------------
+//	*********Timer end function*********
+//-----------------------------------------------------------------------------
 void StopTimer(void){
 	TCCR0B &= ~(1<<CS01);
 	TIMSK0 &= ~(1<<OCIE0A);
@@ -290,7 +290,9 @@ void StopTimer(void){
 00000304 <__vector_21>:
 }
 
-//ADC conversion complete ISR
+//-----------------------------------------------------------------------------
+//	*********ADC conversion complete ISR*********
+//-----------------------------------------------------------------------------
 ISR(ADC_vect){
  304:	1f 92       	push	r1
  306:	0f 92       	push	r0
@@ -312,11 +314,6 @@ ISR(ADC_vect){
 	tempH = ADCH;
  320:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__DATA_REGION_ORIGIN__+0x19>
  324:	80 93 22 01 	sts	0x0122, r24	; 0x800122 <tempH>
-	//if(ii == ADCINDEX){ // read 20 values?
-	//	StopTimer();
-	//	DisableADC();
-	//	flag = 1;
-	//}
  328:	8f 91       	pop	r24
  32a:	0f 90       	pop	r0
  32c:	0f be       	out	0x3f, r0	; 63
