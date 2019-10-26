@@ -60,10 +60,13 @@ int main(void){
 	// Enable global interrupts
 	sei();
     while (1){
+		// 1 Second Delay between displaying temp
 		_delay_ms(1000);
-		tempOut = ((tempH << 8)|(tempL));
-		tempOut = ((tempOut * 0.4883));
-		printf("Temp = %.1f C\r\n",tempOut);
+		// Temp set up
+		tempOut = ((tempOut * 0.488));
+		// Temp Conversion from Celsius to Fahrenheit
+		tempOut = (((9*tempOut)/5) + 32);
+		printf("Temp = %.1f F\r\n",tempOut);
     }
 }
 
@@ -177,4 +180,5 @@ ISR(ADC_vect){
 	PIND = (1<<PD2);
 	tempL = ADCL;
 	tempH = ADCH;
+	tempOut = ((tempH << 8)|(tempL));
 }
