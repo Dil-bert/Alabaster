@@ -18,11 +18,11 @@
 volatile uint8_t tempL = 0;
 volatile uint8_t tempH = 0;
 volatile float tempOut = 0;
-
-char WIFI[40];
-char PASSWORD[80];
-WIFI = " "
-PASSWORD = " "
+char TEMP[50];
+char WIFI[] = "";
+char PASSWORD[] = "";
+//WIFI = "Notouchy"
+//PASSWORD = "N0tYour5"
 // Write API key PBOF6N5FLCW8GWDW
 
 // Function definitions
@@ -38,8 +38,9 @@ void InitTimer0(void);
 int USART0SendByte(char u8Data,FILE *stream);
 void StartTimer0(void);
 void StopTimer(void);
-
-void UART_sendString(volatile unsigned char AT[]);
+void check_OK(void);
+void UART_sendString(char * AT);
+char * UART_ReciveString(void);
 
 ISR(ADC_vect);
 
@@ -69,7 +70,7 @@ int main(void){
 	StartADC();
 	// Enable global interrupts
 	sei();
-	UART_sendString(“AT\r\n”);
+	UART_sendString("AT\r\n");
 	check_OK();
 	// Select WIFI mode
 	UART_sendString("AT+CWMODE=3\r\n");
@@ -84,11 +85,12 @@ int main(void){
 		count = count + 1;
 		// Temp set up
 		tempOut = ((tempOut * 0.488));
-		printf("Temp = %.1f C\r\n",tempOut);
+		//printf("Temp = %.1f C\r\n",tempOut);
 		// Temp Conversion from Celsius to Fahrenheit
-		tempOut = (((9*tempOut)/5) + 32);
-		printf("Temp = %.1f F\r\n",tempOut);
-		if(count = 14){
+		//tempOut = (((9*tempOut)/5) + 32);
+		//printf("Temp = %.1f F\r\n",tempOut);
+		snprintf(TEMP, sizeof(TEMP), "%4f C \r\n\r\n",tempOut);
+		if((count = 14)){
 			// Start a connection as client to Thingspeak
 			UART_sendString("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80\r\n");
 			// Specify the size of the data
@@ -99,7 +101,6 @@ int main(void){
 			UART_sendString("\r\n\r\n");
 			count = 0;
 		}
-		
 	}
 }
 
@@ -107,12 +108,12 @@ int main(void){
 //	*********Port Initialization function*********
 //-----------------------------------------------------------------------------
 void InitPort(){
-	// Set pin C5 as an input pin
-	DDRC |= (0<<PINC5);
-	// Ensure pin C5 pull up resistor is off
-	PORTC = (0<<PINC5);
-	// Turn off Digital logic on pin C5
-	DIDR0 |= (1<<ADC5D);
+	// Set pin C4 as an input pin
+	DDRC |= (0<<PINC4);
+	// Ensure pin C4 pull up resistor is off
+	PORTC = (0<<PINC4);
+	// Turn off Digital logic on pin C4
+	DIDR0 |= (1<<ADC4D);
 }
 
 //-----------------------------------------------------------------------------
@@ -120,7 +121,7 @@ void InitPort(){
 //-----------------------------------------------------------------------------
 void InitADC(){
 	// Select Vref=Avcc and set (left = ADLAR = 1)(right = ADLAR = 0) justified result
-	ADMUX |=(1<<REFS0)|(0<<ADLAR);
+	ADMUX |=(1<<REFS0)|(0<<ADLAR)|(0x04); // (1<< 2 or 3?)
 	// Set prescaller to 32, enable auto triggering, enable ADC interrupt
 	//  and enable ADC
 	ADCSRA |=(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0)|(1<<ADATE)|(1<<ADIE)|(1<<ADEN);
@@ -179,7 +180,7 @@ void InitTimer0(void){
 //-----------------------------------------------------------------------------
 //	*********USART Send function*********
 //-----------------------------------------------------------------------------
-void UART_sendString(volatile unsigned char AT[])
+void UART_sendString(char * AT)
 {
 	volatile unsigned char len= 0;
 	volatile unsigned char i;
@@ -211,6 +212,25 @@ int USART0SendByte(char u8Data,FILE *stream){
 void StartTimer0(void){
 	// Set prescaller 8 and start timer
 	TCCR0B |= (1<<CS01);
+}
+
+void check_OK(void){
+	char *returned_str = UART_ReciveString();
+	while(returned_str[0] == '\0'){
+		returned_str = UART_ReciveString();
+		}
+}
+
+char * UART_ReciveString(void){
+	char *str = (char *) (sizeof(char)*20);
+	volatile uint8_t i = 0;
+	do{
+		// Wait for the transmitter to finish
+		while(!(UCSR0A & (1<<UDRE0)));
+		str[i] = UDR0;
+		i++;
+		} while(UDR0 != '\0');
+	return str;
 }
 
 //-----------------------------------------------------------------------------
