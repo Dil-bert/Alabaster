@@ -21,8 +21,6 @@ volatile float tempOut = 0;
 char TEMP[50];
 char WIFI[] = "";
 char PASSWORD[] = "";
-//WIFI = "Notouchy"
-//PASSWORD = "N0tYour5"
 // Write API key PBOF6N5FLCW8GWDW
 
 // Function definitions
