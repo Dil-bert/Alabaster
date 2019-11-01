@@ -11,8 +11,9 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <string.h>
 #define USART_BAUDRATE 115200
-#define UBRR_VALUE (((F_CPU/(USART_BAUDRATE*16UL)))-1)
+#define UBRR_VALUE (((F_CPU/(USART_BAUDRATE*8UL)))-1)
 
 // Global Variables
 volatile uint8_t tempL = 0;
@@ -59,7 +60,7 @@ int main(void){
 	// Initialize ADC
 	InitADC();
 	// Select ADC channel
-	SetADCChannel(5);
+	SetADCChannel(4);
 	// Initialize timer0
 	InitTimer0();
 	// Start timer 0
@@ -69,13 +70,26 @@ int main(void){
 	// Enable global interrupts
 	sei();
 	UART_sendString("AT\r\n");
+	if(UCSR0A & 0x10){
+		while(1);
+	}
 	check_OK();
+
 	// Select WIFI mode
-	UART_sendString("AT+CWMODE=3\r\n");
+	UART_sendString("AT+CWMODE=1\r\n");
+		if(UCSR0A & 0x10){
+		while(1);
+	}
 	// Connect to local WIFI
 	UART_sendString("AT+CWJAP=\"WIFI\",\"PASSWORD\"\r\n");
+	if(UCSR0A & 0x10){
+		while(1);
+	}
 	// Enable connection
 	UART_sendString("AT+CIPMUX=0\r\n");
+	if(UCSR0A & 0x10){
+		while(1);
+	}
 	
 	while (1){
 		// 1 Second Delay between displaying temp
@@ -87,12 +101,12 @@ int main(void){
 		// Temp Conversion from Celsius to Fahrenheit
 		//tempOut = (((9*tempOut)/5) + 32);
 		//printf("Temp = %.1f F\r\n",tempOut);
-		snprintf(TEMP, sizeof(TEMP), "%4f C \r\n\r\n",tempOut);
+		snprintf(TEMP, sizeof(TEMP), "%.4f C \r\n",tempOut);
 		if((count = 14)){
 			// Start a connection as client to Thingspeak
 			UART_sendString("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80\r\n");
 			// Specify the size of the data
-			UART_sendString("AT+CIPSEND=45\r\n");
+			UART_sendString("AT+CIPSEND=50\r\n");
 			// Send temperature
 			UART_sendString("GET /update?key=PBOF6N5FLCW8GWDW&field1=");
 			UART_sendString(TEMP);
@@ -160,6 +174,8 @@ void USART0Init(void){
 	UCSR0C |= (1<<UCSZ01)|(UCSZ00);
 	// Enable transmission and reception
 	UCSR0B |= (1<<RXEN0) | (1<<TXEN0);
+	// Run double speed
+	UCSR0A |= (1<<U2X0);
 }
 
 //-----------------------------------------------------------------------------
@@ -213,10 +229,18 @@ void StartTimer0(void){
 }
 
 void check_OK(void){
+	uint8_t len = 0;
 	char *returned_str = UART_ReciveString();
 	while(returned_str[0] == '\0'){
 		returned_str = UART_ReciveString();
-		}
+	}
+	len = strlen(returned_str);	
+	if(len > 3){ // error
+		while(1);
+	}
+	if(len <= 3){
+		while(1);
+	}
 }
 
 char * UART_ReciveString(void){
@@ -227,7 +251,7 @@ char * UART_ReciveString(void){
 		while(!(UCSR0A & (1<<UDRE0)));
 		str[i] = UDR0;
 		i++;
-		} while(UDR0 != '\0');
+		} while(!RXC0);
 	return str;
 }
 
