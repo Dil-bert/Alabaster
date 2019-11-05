@@ -12,7 +12,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <string.h>
-#define USART_BAUDRATE 115200
+#define USART_BAUDRATE 9600
 #define UBRR_VALUE (((F_CPU/(USART_BAUDRATE*8UL)))-1)
 
 // Global Variables
@@ -70,30 +70,22 @@ int main(void){
 	// Enable global interrupts
 	sei();
 	UART_sendString("AT\r\n");
-	if(UCSR0A & 0x10){
-		while(1);
-	}
+	_delay_ms(1000);
 	check_OK();
-
+	_delay_ms(1000);
 	// Select WIFI mode
-	UART_sendString("AT+CWMODE=1\r\n");
-		if(UCSR0A & 0x10){
-		while(1);
-	}
+	UART_sendString("AT+CWMODE=3\r\n");
+	_delay_ms(1000);
 	// Connect to local WIFI
-	UART_sendString("AT+CWJAP=\"WIFI\",\"PASSWORD\"\r\n");
-	if(UCSR0A & 0x10){
-		while(1);
-	}
+	UART_sendString("AT+CWJAP=\"Connect\",\"12345678\"\r\n");
+	_delay_ms(1000);
 	// Enable connection
 	UART_sendString("AT+CIPMUX=0\r\n");
-	if(UCSR0A & 0x10){
-		while(1);
-	}
+	_delay_ms(1000);
 	
 	while (1){
 		// 1 Second Delay between displaying temp
-		_delay_ms(1000);
+		_delay_ms(2000);
 		count = count + 1;
 		// Temp set up
 		tempOut = ((tempOut * 0.488));
@@ -102,15 +94,21 @@ int main(void){
 		//tempOut = (((9*tempOut)/5) + 32);
 		//printf("Temp = %.1f F\r\n",tempOut);
 		snprintf(TEMP, sizeof(TEMP), "%.4f C \r\n",tempOut);
-		if((count = 14)){
+		
+		if((count = 15)){
 			// Start a connection as client to Thingspeak
 			UART_sendString("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80\r\n");
+			//_delay_ms(1000);
 			// Specify the size of the data
 			UART_sendString("AT+CIPSEND=50\r\n");
+			//_delay_ms(1000);
 			// Send temperature
 			UART_sendString("GET /update?key=PBOF6N5FLCW8GWDW&field1=");
+			//_delay_ms(1000);
 			UART_sendString(TEMP);
+			//_delay_ms(1000);
 			UART_sendString("\r\n\r\n");
+			//_delay_ms(1000);
 			count = 0;
 		}
 	}
@@ -237,9 +235,14 @@ void check_OK(void){
 	len = strlen(returned_str);	
 	if(len > 3){ // error
 		while(1);
+		UART_sendString(returned_str);
+		_delay_ms(1000);
+		UART_sendString("AT\r\n");
+		_delay_ms(1000);
 	}
-	if(len <= 3){
-		while(1);
+	if(len < 3){
+		UART_sendString(returned_str);
+		_delay_ms(1000);
 	}
 }
 
