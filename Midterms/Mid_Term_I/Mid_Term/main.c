@@ -6,14 +6,15 @@
  */ 
 
 #define F_CPU 16000000UL
-
 #include <stdio.h>
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <string.h>
-#define USART_BAUDRATE 9600
-#define UBRR_VALUE (((F_CPU/(USART_BAUDRATE*8UL)))-1)
+#include <stdlib.h>
+
+#define USART_BAUDRATE 115200
+#define UBRR_VALUE (int)round((((F_CPU/(USART_BAUDRATE*8UL)))-1))
 
 // Global Variables
 volatile uint8_t tempL = 0;
@@ -22,7 +23,7 @@ volatile float tempOut = 0;
 char TEMP[50];
 char WIFI[] = "";
 char PASSWORD[] = "";
-// Write API key PBOF6N5FLCW8GWDW
+
 
 // Function definitions
 void InitPort();
@@ -50,7 +51,6 @@ FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, NULL, _FDEV_SETUP_WRITE);
 //	**********MAIN**********
 //-----------------------------------------------------------------------------
 int main(void){
-	uint8_t count = 0;
 	// Initialize USART0
 	USART0Init();
 	// Initialize ports
@@ -70,48 +70,39 @@ int main(void){
 	// Enable global interrupts
 	sei();
 	UART_sendString("AT\r\n");
-	_delay_ms(1000);
+	_delay_ms(20);
+	// Check if ok returned
 	check_OK();
-	_delay_ms(1000);
+	_delay_ms(20);
 	// Select WIFI mode
-	UART_sendString("AT+CWMODE=3\r\n");
-	_delay_ms(1000);
-	// Connect to local WIFI
-	UART_sendString("AT+CWJAP=\"Connect\",\"12345678\"\r\n");
-	_delay_ms(1000);
+	UART_sendString("AT+CWMODE=1\r\n");
+	_delay_ms(20);
+	// Connect to local WIFI (REPLACE "SSID" and "PASSWORD" with your ssid and password 
+	UART_sendString("AT+CWJAP=\"SSID\",\"PASSWORD\"\r\n");
+	_delay_ms(40);
 	// Enable connection
 	UART_sendString("AT+CIPMUX=0\r\n");
-	_delay_ms(1000);
+	_delay_ms(40);
 	
 	while (1){
-		// 1 Second Delay between displaying temp
-		_delay_ms(2000);
-		count = count + 1;
+		// 15 Second Delay between displaying temp
+		_delay_ms(15000);
+		
+		// Start a connection as client to Thingspeak
+		UART_sendString("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80\r\n");//"AT+CIPSTART=\"TCP\",\"184.106.153.149\",80\r\n"
+		_delay_ms(40);
+		// Specify the size of the data
+		UART_sendString("AT+CIPSEND=51\r\n");
+		_delay_ms(40);
 		// Temp set up
 		tempOut = ((tempOut * 0.488));
-		//printf("Temp = %.1f C\r\n",tempOut);
-		// Temp Conversion from Celsius to Fahrenheit
-		//tempOut = (((9*tempOut)/5) + 32);
-		//printf("Temp = %.1f F\r\n",tempOut);
-		snprintf(TEMP, sizeof(TEMP), "%.4f C \r\n",tempOut);
-		
-		if((count = 15)){
-			// Start a connection as client to Thingspeak
-			UART_sendString("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80\r\n");
-			//_delay_ms(1000);
-			// Specify the size of the data
-			UART_sendString("AT+CIPSEND=50\r\n");
-			//_delay_ms(1000);
-			// Send temperature
-			UART_sendString("GET /update?key=PBOF6N5FLCW8GWDW&field1=");
-			//_delay_ms(1000);
-			UART_sendString(TEMP);
-			//_delay_ms(1000);
-			UART_sendString("\r\n\r\n");
-			//_delay_ms(1000);
-			count = 0;
+		// AT data send command set up
+		snprintf(TEMP, sizeof(TEMP), "GET /update?key=XUHJJ4KV38XFPTT7&field1=%2f", tempOut);
+		// Send temperature data
+		UART_sendString(TEMP);
+		_delay_ms(20);
+		UART_sendString("\r\n\r\n");
 		}
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -278,6 +269,3 @@ ISR(ADC_vect){
 	tempH = ADCH;
 	tempOut = ((tempH << 8)|(tempL));
 }
-
-
-
