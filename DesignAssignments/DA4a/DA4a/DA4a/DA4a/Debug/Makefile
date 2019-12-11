@@ -58,9 +58,9 @@ main.d
 C_DEPS_AS_ARGS +=  \
 main.d
 
-OUTPUT_FILE_PATH +=DA4SOMETHING.elf
+OUTPUT_FILE_PATH +=DA4a.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=DA4SOMETHING.elf
+OUTPUT_FILE_PATH_AS_ARGS +=DA4a.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -105,13 +105,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 5.4.0
-	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="DA4SOMETHING.map" -Wl,-u,vfprintf -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega328p -B "D:\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328p" -lprintf_flt  
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="DA4a.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega328p -B "D:\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328p"  
 	@echo Finished building target: $@
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "DA4SOMETHING.elf" "DA4SOMETHING.hex"
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "DA4SOMETHING.elf" "DA4SOMETHING.eep" || exit 0
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "DA4SOMETHING.elf" > "DA4SOMETHING.lss"
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "DA4SOMETHING.elf" "DA4SOMETHING.srec"
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "DA4SOMETHING.elf"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "DA4a.elf" "DA4a.hex"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "DA4a.elf" "DA4a.eep" || exit 0
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "DA4a.elf" > "DA4a.lss"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "DA4a.elf" "DA4a.srec"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "DA4a.elf"
 	
 	
 
@@ -123,5 +123,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "DA4SOMETHING.elf" "DA4SOMETHING.a" "DA4SOMETHING.hex" "DA4SOMETHING.lss" "DA4SOMETHING.eep" "DA4SOMETHING.map" "DA4SOMETHING.srec" "DA4SOMETHING.usersignatures"
+	rm -rf "DA4a.elf" "DA4a.a" "DA4a.hex" "DA4a.lss" "DA4a.eep" "DA4a.map" "DA4a.srec" "DA4a.usersignatures"
 	

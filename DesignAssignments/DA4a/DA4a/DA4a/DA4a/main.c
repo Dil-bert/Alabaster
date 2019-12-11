@@ -186,7 +186,7 @@ void StartTimer0(void){
 }
 
 void StartTimer1(void){
-	// Set prescaller 8 and start timer
+	// Set prescaller 128 and start timer
 	TCCR1B |= (1<<CS12)|(1<<CS10);
 }
 
