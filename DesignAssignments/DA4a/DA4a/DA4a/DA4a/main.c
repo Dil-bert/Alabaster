@@ -15,7 +15,7 @@
 
 // Global Variables
 volatile float ADC_in_Out = 0;
-volatile int DC;
+volatile uint8_t DC;
 
 // Function definitions
 void InitPort();
@@ -66,13 +66,13 @@ int main(void){
 	sei();
 	OCR1AH = 0X00;
     while (1){
-		DC = (ADC_in_Out/1023)*100;
+		ADC_in_Out = (ADC_in_Out);
 		//_delay_ms(1000);
-		//printf("Temp = %10.d DD\r\n",DC);
-		DC = (DC* 2 * 0xFF);
+		printf("Temp = %10.f DD\r\n",ADC_in_Out);
+		DC = ((ADC_in_Out / 1023) * 0xFF);
 		//_delay_ms(1000);
-		//printf("Temp = %10.d FF\r\n",DC);
-		OCR1A = (DC + 10);
+		printf("Temp = %10.d FF\r\n",DC);
+		OCR1A = (DC);
 		
     }
 }
@@ -219,8 +219,10 @@ ISR(ADC_vect){
 }
 
 ISR(PCINT1_vect){
+	_delay_ms(250);
 	if(!(PINC & (1 << PINC1))){
-		OCR1A = 0;
-		ToggleTimer1();
+		//OCR1A = 0;
+		//ToggleTimer1();
+		DDRB ^= (1<<PINB1);
 	}
 }
