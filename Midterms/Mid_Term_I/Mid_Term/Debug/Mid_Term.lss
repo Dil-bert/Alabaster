@@ -3,31 +3,31 @@ Mid_Term.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         000000ba  00800100  00001210  000012a4  2**0
+  0 .data         000000b6  00800100  00001210  000012a4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00001210  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000003e  008001ba  008001ba  0000135e  2**0
+  2 .bss          0000003e  008001b6  008001b6  0000135a  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  0000135e  2**0
+  3 .comment      0000005c  00000000  00000000  0000135a  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000013bc  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000013b8  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000090  00000000  00000000  000013fc  2**0
+  5 .debug_aranges 00000090  00000000  00000000  000013f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000c41  00000000  00000000  0000148c  2**0
+  6 .debug_info   00000c41  00000000  00000000  00001488  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000085f  00000000  00000000  000020cd  2**0
+  7 .debug_abbrev 0000085f  00000000  00000000  000020c9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000005b1  00000000  00000000  0000292c  2**0
+  8 .debug_line   000005b1  00000000  00000000  00002928  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000190  00000000  00000000  00002ee0  2**2
+  9 .debug_frame  00000190  00000000  00000000  00002edc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000004e4  00000000  00000000  00003070  2**0
+ 10 .debug_str    000004e4  00000000  00000000  0000306c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000002eb  00000000  00000000  00003554  2**0
+ 11 .debug_loc    000002eb  00000000  00000000  00003550  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000080  00000000  00000000  0000383f  2**0
+ 12 .debug_ranges 00000080  00000000  00000000  0000383b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -99,13 +99,13 @@ Disassembly of section .text:
      180:	02 c0       	rjmp	.+4      	; 0x186 <__do_copy_data+0x10>
      182:	05 90       	lpm	r0, Z+
      184:	0d 92       	st	X+, r0
-     186:	aa 3b       	cpi	r26, 0xBA	; 186
+     186:	a6 3b       	cpi	r26, 0xB6	; 182
      188:	b1 07       	cpc	r27, r17
      18a:	d9 f7       	brne	.-10     	; 0x182 <__do_copy_data+0xc>
 
 0000018c <__do_clear_bss>:
      18c:	21 e0       	ldi	r18, 0x01	; 1
-     18e:	aa eb       	ldi	r26, 0xBA	; 186
+     18e:	a6 eb       	ldi	r26, 0xB6	; 182
      190:	b1 e0       	ldi	r27, 0x01	; 1
      192:	01 c0       	rjmp	.+2      	; 0x196 <.do_clear_bss_start>
 
@@ -113,7 +113,7 @@ Disassembly of section .text:
      194:	1d 92       	st	X+, r1
 
 00000196 <.do_clear_bss_start>:
-     196:	a8 3f       	cpi	r26, 0xF8	; 248
+     196:	a4 3f       	cpi	r26, 0xF4	; 244
      198:	b2 07       	cpc	r27, r18
      19a:	e1 f7       	brne	.-8      	; 0x194 <.do_clear_bss_loop>
      19c:	0e 94 98 01 	call	0x330	; 0x330 <main>
@@ -344,8 +344,8 @@ void StopTimer(void){
      334:	0e 94 de 00 	call	0x1bc	; 0x1bc <InitPort>
      338:	80 e0       	ldi	r24, 0x00	; 0
      33a:	91 e0       	ldi	r25, 0x01	; 1
-     33c:	90 93 f5 01 	sts	0x01F5, r25	; 0x8001f5 <__iob+0x3>
-     340:	80 93 f4 01 	sts	0x01F4, r24	; 0x8001f4 <__iob+0x2>
+     33c:	90 93 f1 01 	sts	0x01F1, r25	; 0x8001f1 <__iob+0x3>
+     340:	80 93 f0 01 	sts	0x01F0, r24	; 0x8001f0 <__iob+0x2>
      344:	0e 94 e7 00 	call	0x1ce	; 0x1ce <InitADC>
      348:	84 e0       	ldi	r24, 0x04	; 4
      34a:	0e 94 f7 00 	call	0x1ee	; 0x1ee <SetADCChannel>
@@ -399,7 +399,7 @@ void StopTimer(void){
      3ba:	e1 f7       	brne	.-8      	; 0x3b4 <main+0x84>
      3bc:	00 c0       	rjmp	.+0      	; 0x3be <main+0x8e>
      3be:	00 00       	nop
-     3c0:	82 e4       	ldi	r24, 0x42	; 66
+     3c0:	8e e3       	ldi	r24, 0x3E	; 62
      3c2:	91 e0       	ldi	r25, 0x01	; 1
      3c4:	0e 94 21 01 	call	0x242	; 0x242 <UART_sendString>
      3c8:	2f ef       	ldi	r18, 0xFF	; 255
@@ -411,13 +411,13 @@ void StopTimer(void){
      3d4:	e1 f7       	brne	.-8      	; 0x3ce <main+0x9e>
      3d6:	00 c0       	rjmp	.+0      	; 0x3d8 <main+0xa8>
      3d8:	00 00       	nop
-     3da:	09 e8       	ldi	r16, 0x89	; 137
+     3da:	05 e8       	ldi	r16, 0x85	; 133
      3dc:	11 e0       	ldi	r17, 0x01	; 1
      3de:	0f 2e       	mov	r0, r31
      3e0:	f2 e3       	ldi	r31, 0x32	; 50
      3e2:	ff 2e       	mov	r15, r31
      3e4:	f0 2d       	mov	r31, r0
-     3e6:	c0 ec       	ldi	r28, 0xC0	; 192
+     3e6:	cc eb       	ldi	r28, 0xBC	; 188
      3e8:	d1 e0       	ldi	r29, 0x01	; 1
      3ea:	9f ef       	ldi	r25, 0xFF	; 255
      3ec:	29 e5       	ldi	r18, 0x59	; 89
@@ -430,7 +430,7 @@ void StopTimer(void){
      3fa:	d9 f7       	brne	.-10     	; 0x3f2 <main+0xc2>
      3fc:	00 c0       	rjmp	.+0      	; 0x3fe <main+0xce>
      3fe:	00 00       	nop
-     400:	80 e5       	ldi	r24, 0x50	; 80
+     400:	8c e4       	ldi	r24, 0x4C	; 76
      402:	91 e0       	ldi	r25, 0x01	; 1
      404:	0e 94 21 01 	call	0x242	; 0x242 <UART_sendString>
      408:	9f ef       	ldi	r25, 0xFF	; 255
@@ -442,7 +442,7 @@ void StopTimer(void){
      414:	e1 f7       	brne	.-8      	; 0x40e <__LOCK_REGION_LENGTH__+0xe>
      416:	00 c0       	rjmp	.+0      	; 0x418 <__LOCK_REGION_LENGTH__+0x18>
      418:	00 00       	nop
-     41a:	89 e7       	ldi	r24, 0x79	; 121
+     41a:	85 e7       	ldi	r24, 0x75	; 117
      41c:	91 e0       	ldi	r25, 0x01	; 1
      41e:	0e 94 21 01 	call	0x242	; 0x242 <UART_sendString>
      422:	8f ef       	ldi	r24, 0xFF	; 255
@@ -454,23 +454,23 @@ void StopTimer(void){
      42e:	e1 f7       	brne	.-8      	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
      430:	00 c0       	rjmp	.+0      	; 0x432 <__LOCK_REGION_LENGTH__+0x32>
      432:	00 00       	nop
-     434:	60 91 ba 01 	lds	r22, 0x01BA	; 0x8001ba <__data_end>
-     438:	70 91 bb 01 	lds	r23, 0x01BB	; 0x8001bb <__data_end+0x1>
-     43c:	80 91 bc 01 	lds	r24, 0x01BC	; 0x8001bc <__data_end+0x2>
-     440:	90 91 bd 01 	lds	r25, 0x01BD	; 0x8001bd <__data_end+0x3>
+     434:	60 91 b6 01 	lds	r22, 0x01B6	; 0x8001b6 <__data_end>
+     438:	70 91 b7 01 	lds	r23, 0x01B7	; 0x8001b7 <__data_end+0x1>
+     43c:	80 91 b8 01 	lds	r24, 0x01B8	; 0x8001b8 <__data_end+0x2>
+     440:	90 91 b9 01 	lds	r25, 0x01B9	; 0x8001b9 <__data_end+0x3>
      444:	23 e2       	ldi	r18, 0x23	; 35
      446:	3b ed       	ldi	r19, 0xDB	; 219
      448:	49 ef       	ldi	r20, 0xF9	; 249
      44a:	5e e3       	ldi	r21, 0x3E	; 62
      44c:	0e 94 dc 02 	call	0x5b8	; 0x5b8 <__mulsf3>
-     450:	60 93 ba 01 	sts	0x01BA, r22	; 0x8001ba <__data_end>
-     454:	70 93 bb 01 	sts	0x01BB, r23	; 0x8001bb <__data_end+0x1>
-     458:	80 93 bc 01 	sts	0x01BC, r24	; 0x8001bc <__data_end+0x2>
-     45c:	90 93 bd 01 	sts	0x01BD, r25	; 0x8001bd <__data_end+0x3>
-     460:	80 91 ba 01 	lds	r24, 0x01BA	; 0x8001ba <__data_end>
-     464:	90 91 bb 01 	lds	r25, 0x01BB	; 0x8001bb <__data_end+0x1>
-     468:	a0 91 bc 01 	lds	r26, 0x01BC	; 0x8001bc <__data_end+0x2>
-     46c:	b0 91 bd 01 	lds	r27, 0x01BD	; 0x8001bd <__data_end+0x3>
+     450:	60 93 b6 01 	sts	0x01B6, r22	; 0x8001b6 <__data_end>
+     454:	70 93 b7 01 	sts	0x01B7, r23	; 0x8001b7 <__data_end+0x1>
+     458:	80 93 b8 01 	sts	0x01B8, r24	; 0x8001b8 <__data_end+0x2>
+     45c:	90 93 b9 01 	sts	0x01B9, r25	; 0x8001b9 <__data_end+0x3>
+     460:	80 91 b6 01 	lds	r24, 0x01B6	; 0x8001b6 <__data_end>
+     464:	90 91 b7 01 	lds	r25, 0x01B7	; 0x8001b7 <__data_end+0x1>
+     468:	a0 91 b8 01 	lds	r26, 0x01B8	; 0x8001b8 <__data_end+0x2>
+     46c:	b0 91 b9 01 	lds	r27, 0x01B9	; 0x8001b9 <__data_end+0x3>
      470:	bf 93       	push	r27
      472:	af 93       	push	r26
      474:	9f 93       	push	r25
@@ -493,7 +493,7 @@ void StopTimer(void){
      49a:	e1 f7       	brne	.-8      	; 0x494 <__LOCK_REGION_LENGTH__+0x94>
      49c:	00 c0       	rjmp	.+0      	; 0x49e <__LOCK_REGION_LENGTH__+0x9e>
      49e:	00 00       	nop
-     4a0:	85 eb       	ldi	r24, 0xB5	; 181
+     4a0:	81 eb       	ldi	r24, 0xB1	; 177
      4a2:	91 e0       	ldi	r25, 0x01	; 1
      4a4:	0e 94 21 01 	call	0x242	; 0x242 <UART_sendString>
      4a8:	8d b7       	in	r24, 0x3d	; 61
@@ -540,13 +540,13 @@ ISR(ADC_vect){
      4e2:	89 b9       	out	0x09, r24	; 9
 	tempL = ADCL;
      4e4:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__DATA_REGION_ORIGIN__+0x18>
-     4e8:	80 93 bf 01 	sts	0x01BF, r24	; 0x8001bf <tempL>
+     4e8:	80 93 bb 01 	sts	0x01BB, r24	; 0x8001bb <tempL>
 	tempH = ADCH;
      4ec:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__DATA_REGION_ORIGIN__+0x19>
-     4f0:	80 93 be 01 	sts	0x01BE, r24	; 0x8001be <tempH>
+     4f0:	80 93 ba 01 	sts	0x01BA, r24	; 0x8001ba <tempH>
 	tempOut = ((tempH << 8)|(tempL));
-     4f4:	80 91 be 01 	lds	r24, 0x01BE	; 0x8001be <tempH>
-     4f8:	60 91 bf 01 	lds	r22, 0x01BF	; 0x8001bf <tempL>
+     4f4:	80 91 ba 01 	lds	r24, 0x01BA	; 0x8001ba <tempH>
+     4f8:	60 91 bb 01 	lds	r22, 0x01BB	; 0x8001bb <tempL>
      4fc:	70 e0       	ldi	r23, 0x00	; 0
      4fe:	78 2b       	or	r23, r24
      500:	07 2e       	mov	r0, r23
@@ -554,10 +554,10 @@ ISR(ADC_vect){
      504:	88 0b       	sbc	r24, r24
      506:	99 0b       	sbc	r25, r25
      508:	0e 94 a1 02 	call	0x542	; 0x542 <__floatsisf>
-     50c:	60 93 ba 01 	sts	0x01BA, r22	; 0x8001ba <__data_end>
-     510:	70 93 bb 01 	sts	0x01BB, r23	; 0x8001bb <__data_end+0x1>
-     514:	80 93 bc 01 	sts	0x01BC, r24	; 0x8001bc <__data_end+0x2>
-     518:	90 93 bd 01 	sts	0x01BD, r25	; 0x8001bd <__data_end+0x3>
+     50c:	60 93 b6 01 	sts	0x01B6, r22	; 0x8001b6 <__data_end>
+     510:	70 93 b7 01 	sts	0x01B7, r23	; 0x8001b7 <__data_end+0x1>
+     514:	80 93 b8 01 	sts	0x01B8, r24	; 0x8001b8 <__data_end+0x2>
+     518:	90 93 b9 01 	sts	0x01B9, r25	; 0x8001b9 <__data_end+0x3>
      51c:	ff 91       	pop	r31
      51e:	ef 91       	pop	r30
      520:	bf 91       	pop	r27
