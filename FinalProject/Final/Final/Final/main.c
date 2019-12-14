@@ -9,7 +9,7 @@
 #define F_CPU 16000000UL
 #endif
 
-#define USART_BAUDRATE 115200
+#define USART_BAUDRATE 9600
 #define UBRR_VALUE (int)round((((F_CPU/(USART_BAUDRATE*8UL)))-1))
 
 #include <avr/io.h>
@@ -152,7 +152,7 @@ int main(void){
 	UART_sendString("AT+CWMODE=1\r\n");
 	_delay_ms(20);
 	// Connect to local WIFI (REPLACE "SSID" and "PASSWORD" with your ssid and password
-	UART_sendString("AT+CWJAP=\"NoMore\",\"Ch@ng3l!ng\"\r\n");
+	UART_sendString("AT+CWJAP=\"SSID\",\"PASSWORD\"\r\n");
 	_delay_ms(40);
 	// Enable connection
 	UART_sendString("AT+CIPMUX=0\r\n");
